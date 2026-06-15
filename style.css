@@ -1287,6 +1287,11 @@ footer {
 /* ==========================================================================
    ADVANCED MASTER ADAPTIVE MEDIA QUERIES (MOBILE MOBILE ARCHITECTURE FIXED)
    ========================================================================== */
+@media (max-width: 968px) {
+    /* Side Drawers fill completely on mobile phones */
+    .cart-drawer, .checkout-drawer {
+        width: 100vw !important;
+    }
 
     .cart-drawer {
         right: -100vw;
