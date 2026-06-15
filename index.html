@@ -265,7 +265,7 @@
                 <a href="#" class="category-link active">All Pieces</a>
                 <a href="#" class="category-link">Skirts</a>
                 <a href="#" class="category-link">Blouses</a>
-                
+
             </div>
         </section>
 
@@ -533,11 +533,11 @@
             document.getElementById('receiptTotal').textContent = totalStr;
 
             document.getElementById('receiptItemsList').innerHTML = cart.map(i => `
-                    <div class="receipt-item-row">
-                        <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
-                        <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
-                    </div>
-                `).join('');
+                        <div class="receipt-item-row">
+                            <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
+                            <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
+                        </div>
+                    `).join('');
 
             const formData = new FormData(checkoutForm);
 
@@ -638,7 +638,7 @@
                 modalAddAction.textContent = "Add To Bag";
                 modalAddAction.style.backgroundColor = "var(--dark-charcoal)";
                 closeModal();
-                openCart();
+                // Cart drawer open event has been intentionally skipped here so users can browse unimpeded.
             }, 800);
         });
 
@@ -665,17 +665,17 @@
                 cartItemsList.innerHTML = '<p class="empty-cart-msg">Your bag is currently empty.</p>';
             } else {
                 cartItemsList.innerHTML = cart.map(item => `
-                        <div class="cart-item">
-                            <div class="cart-item-info">
-                                <span class="cart-item-title">${item.name}</span>
-                                <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                            <div class="cart-item">
+                                <div class="cart-item-info">
+                                    <span class="cart-item-title">${item.name}</span>
+                                    <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                </div>
+                                <div class="cart-item-price-block">
+                                    <span>EGP ${item.price * item.quantity}</span>
+                                    <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
+                                </div>
                             </div>
-                            <div class="cart-item-price-block">
-                                <span>EGP ${item.price * item.quantity}</span>
-                                <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
-                            </div>
-                        </div>
-                    `).join('');
+                        `).join('');
             }
 
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
