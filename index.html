@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zekra | Editorial Fashion</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Premium Editorial Fonts & Minimalist Icon Pack -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Luxury Navigation Bar -->
     <header>
         <div class="logo">ZEKRA</div>
         <nav>
             <a href="#" class="nav-link-hide">Collections</a>
             <a href="#" class="nav-link-hide">Our Story</a>
+            <!-- Shopping Cart Button with Counter Badge -->
             <a href="#" class="cart-icon-btn" id="cartToggle">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span class="cart-counter">0</span>
@@ -22,12 +25,14 @@
         </nav>
     </header>
 
+    <!-- Slide-Out Luxury Cart Drawer Sidebar -->
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
             <h2>Your Bag</h2>
             <button class="close-cart-btn" id="cartClose"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
+        <!-- Dynamic Item List Container -->
         <div class="cart-items-container" id="cartItemsList">
             <p class="empty-cart-msg">Your bag is currently empty.</p>
         </div>
@@ -42,7 +47,9 @@
     </div>
     <div class="cart-overlay" id="cartOverlay"></div>
 
+    <!-- Slide-Out Checkout Drawer Sidebar (From Left) -->
     <div class="checkout-drawer" id="checkoutDrawer">
+        <!-- Sub-Panel A: Active Checkout Input Form -->
         <div id="checkoutFormPanel" style="height: 100%; display: flex; flex-direction: column;">
             <div class="checkout-drawer-header">
                 <button class="back-cart-btn" id="checkoutClose"><i class="fa-solid fa-arrow-left-long"></i></button>
@@ -52,6 +59,7 @@
             <form class="checkout-form" id="checkoutForm" action="https://formspree.io/f/xojzrnlr" method="POST" enctype="multipart/form-data">
                 <div class="checkout-scroll-area">
 
+                    <!-- Shipping Form Details -->
                     <div class="form-section">
                         <h3>Delivery Details</h3>
                         <div class="input-field">
@@ -68,6 +76,7 @@
                         </div>
                     </div>
 
+                    <!-- Payment Method Toggle Options -->
                     <div class="form-section">
                         <h3>Payment Method</h3>
 
@@ -108,9 +117,11 @@
                         </div>
                     </div>
 
+                    <!-- Hidden tracking fields for email data parsing mapping -->
                     <input type="hidden" name="Purchased Items" id="hiddenCartItemsInput">
                     <input type="hidden" name="Grand Total Due" id="hiddenGrandTotalInput">
 
+                    <!-- Order Pricing Overview Summary -->
                     <div class="form-section summary-box">
                         <h3>Order Summary</h3>
                         <div class="summary-row">
@@ -135,6 +146,7 @@
             </form>
         </div>
 
+        <!-- Sub-Panel B: Order Success Screen Component -->
         <div id="checkoutSuccessPanel" style="display: none; height: 100%; flex-direction: column;">
             <div class="checkout-drawer-header success-header">
                 <h2>Order Submitted</h2>
@@ -156,6 +168,7 @@
                     <div class="receipt-section">
                         <h4>Items Ordered</h4>
                         <div id="receiptItemsList" class="receipt-items-mini">
+                            <!-- Populates dynamically -->
                         </div>
                     </div>
 
@@ -187,6 +200,7 @@
     </div>
     <div class="checkout-overlay" id="checkoutOverlay"></div>
 
+    <!-- Premium Product Details Pop-Up Modal Box -->
     <div class="product-modal" id="productModal">
         <div class="modal-body">
             <button class="close-modal-btn" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
@@ -220,7 +234,40 @@
     </div>
     <div class="modal-overlay" id="modalOverlay"></div>
 
+    <!-- Slide-Up Privacy Policy Drawer -->
+    <div class="privacy-drawer" id="privacyDrawer">
+        <div class="privacy-drawer-header">
+            <h2>Privacy Policy</h2>
+            <button class="close-privacy-btn" id="privacyClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="privacy-scroll-area">
+            <p class="privacy-effective">Effective Date: June 2026</p>
+
+            <div class="privacy-section-block">
+                <h3>1. Information We Collect</h3>
+                <p>We receive, collect, and store personal parameters you input willfully onto our platform. This includes delivery configuration data (Full Name, Phone Coordinates, Governorate/City, and detailed physical shipping endpoints) explicitly supplied during order transmissions, or structural feedback text shared via our studio desk communication forms.</p>
+            </div>
+
+            <div class="privacy-section-block">
+                <h3>2. How We Use Data</h3>
+                <p>Your processing coordinates are utilized exclusively to execute package routing logistics, verify digital screenshot payment parameters for Instapay clearances, and transmit tracking code sequences via SMS. We run operations purely through linear paths; your information will never be leased, sold, or distributed to outside corporate marketing networks.</p>
+            </div>
+
+            <div class="privacy-section-block">
+                <h3>3. Third-Party Transmissions</h3>
+                <p>Data forms are transmitted securely to Formspree interfaces strictly for transaction compilation and structured order parsing records. Screenshot media handles are held within confidential data limits to preserve the financial integrity of our patrons.</p>
+            </div>
+
+            <div class="privacy-section-block">
+                <h3>4. Your Rights</h3>
+                <p>Clients maintain absolute control over their operational identities. At any moment, you may query our team to wipe, modify, or inspect your personal information from our internal processing records by dropping an enquiry statement directly to our studio handlers.</p>
+            </div>
+        </div>
+    </div>
+    <div class="privacy-overlay" id="privacyOverlay"></div>
+
     <main>
+        <!-- Split Hero Section (Responsive Mobile Stacking Configured) -->
         <section class="split-hero">
             <div class="hero-left">
                 <div class="top-line">
@@ -243,6 +290,7 @@
             </div>
         </section>
 
+        <!-- Shop Categories Menu -->
         <section class="categories-section">
             <h2 class="section-title">Shop by Category</h2>
             <div class="categories-menu">
@@ -253,6 +301,7 @@
             </div>
         </section>
 
+        <!-- Product Lookbook Grid -->
         <section class="lookbook-grid">
             <div class="grid-item" data-id="1" data-name="Lilly the Skirt" data-price="1200" data-desc="A beautifully tier-paneled silhouette with intricate flowing dimensions and tailored waist shaping. Designed to move effortlessly through urban spaces.">
                 <div class="grid-media-box">
@@ -297,6 +346,7 @@
             </div>
         </section>
 
+        <!-- Editorial Split Section -->
         <section class="editorial-split">
             <div class="text-side">
                 <h2>DESIGNING <span>Memories</span> <br>INTO THE <span>Fabric</span></h2>
@@ -309,6 +359,7 @@
             </div>
         </section>
 
+        <!-- FAQs & Newsletter Section -->
         <section class="faq-newsletter-section">
             <div class="faq-container">
                 <span class="faq-subtitle">Frequently Asked Questions</span>
@@ -361,6 +412,7 @@
             </div>
         </section>
 
+        <!-- Dynamic Editorial Contact Section -->
         <section class="contact-section">
             <div class="contact-container">
                 <div class="contact-info-column">
@@ -371,23 +423,20 @@
                     <div class="contact-details-list">
                         <div class="contact-detail-item">
                             <h4>Studio Enquiries</h4>
-                            <p><a href="mailto:info@zekraclothing.com">info@zekraclothing.com</a></p>
+                            <p><a href="mailto:zekra.eg.2026@gmail">zekra.eg.2026@gmail.com</a></p>
                         </div>
                         <div class="contact-detail-item">
                             <h4>Digital Transmission</h4>
                             <p class="social-links">
-                                <a href="https://instagram.com/zekra.clothing" target="_blank"><i class="fa-brands fa-instagram"></i> @zekra.clothing</a>
+                                <a href="https://www.instagram.com/zekraegyy?igsh=NGdrcG51OTJkb20=" target="_blank"><i class="fa-brands fa-instagram"></i>zekraegyy</a>
                             </p>
-                        </div>
-                        <div class="contact-detail-item">
-                            <h4>Atelier Location</h4>
-                            <p>New Cairo City, Cairo, Egypt</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="contact-form-column">
                     <form class="contact-editorial-form" action="https://formspree.io/f/xojzrnlr" method="POST" onsubmit="this.querySelector('button[type=submit]').textContent='Sending...';">
+                        <!-- Formspree Subject custom config -->
                         <input type="hidden" name="_subject" value="New Website Contact Message // ZEKRA">
 
                         <div class="contact-input-field">
@@ -407,9 +456,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 ZEKRA. All rights reserved.</p>
+        <p>&copy; 2026 ZEKRA. All rights reserved. &nbsp;|&nbsp; <a href="#" id="privacyToggle" class="privacy-footer-link">Privacy Policy</a></p>
     </footer>
 
+    <!-- INTERACTIVE SCRIPT LOGIC -->
     <script>
         let cart = [];
         let currentActiveProductId = null;
@@ -451,6 +501,12 @@
         const detailTriggers = document.querySelectorAll('.view-details-trigger');
         const sizeButtons = document.querySelectorAll('#modalSizeContainer .size-btn');
 
+        // Privacy Policy Elements
+        const privacyDrawer = document.getElementById('privacyDrawer');
+        const privacyOverlay = document.getElementById('privacyOverlay');
+        const privacyToggle = document.getElementById('privacyToggle');
+        const privacyClose = document.getElementById('privacyClose');
+
         cartToggle.addEventListener('click', (e) => { e.preventDefault(); openCart(); });
         cartClose.addEventListener('click', closeCart);
         cartOverlay.addEventListener('click', closeCart);
@@ -460,6 +516,7 @@
             cartOverlay.classList.add('active');
             closeModal();
             closeCheckout();
+            closePrivacy();
         }
 
         function closeCart() {
@@ -499,6 +556,24 @@
         function closeCheckout() {
             checkoutDrawer.classList.remove('open');
             checkoutOverlay.classList.remove('active');
+        }
+
+        // Privacy Drawer Interaction Logic
+        privacyToggle.addEventListener('click', (e) => { e.preventDefault(); openPrivacy(); });
+        privacyClose.addEventListener('click', closePrivacy);
+        privacyOverlay.addEventListener('click', closePrivacy);
+
+        function openPrivacy() {
+            privacyDrawer.classList.add('open');
+            privacyOverlay.classList.add('active');
+            closeModal();
+            closeCart();
+            closeCheckout();
+        }
+
+        function closePrivacy() {
+            privacyDrawer.classList.remove('open');
+            privacyOverlay.classList.remove('active');
         }
 
         function togglePaymentDetails(type) {

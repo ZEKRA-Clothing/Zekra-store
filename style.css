@@ -1392,6 +1392,118 @@ nav {
         background-color: var(--burgundy);
     }
 
+/* Privacy Bottom Drawer Component */
+.privacy-drawer {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 70vh;
+    background-color: var(--off-white);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
+    z-index: 1500;
+    display: flex;
+    flex-direction: column;
+    transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    border-top: 1px solid rgba(30, 16, 15, 0.1);
+}
+
+    .privacy-drawer.open {
+        bottom: 0;
+    }
+
+.privacy-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid rgba(30, 16, 15, 0.06);
+}
+
+    .privacy-drawer-header h2 {
+        font-family: 'Cinzel', serif;
+        font-weight: 400;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+
+.close-privacy-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--dark-charcoal);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+    .close-privacy-btn:hover {
+        opacity: 1;
+    }
+
+.privacy-scroll-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 2.5rem;
+}
+
+.privacy-effective {
+    font-size: 0.8rem;
+    color: var(--soft-grey);
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.privacy-section-block {
+    margin-bottom: 2rem;
+}
+
+    .privacy-section-block h3 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--dark-charcoal);
+        margin-bottom: 0.8rem;
+    }
+
+    .privacy-section-block p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: var(--soft-grey);
+    }
+
+.privacy-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1499;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+    .privacy-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+.privacy-footer-link {
+    color: var(--off-white);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: color 0.3s ease;
+}
+
+    .privacy-footer-link:hover {
+        color: var(--burgundy);
+        opacity: 1;
+    }
+
 footer {
     text-align: center;
     padding: 4rem 0;
@@ -1417,6 +1529,11 @@ footer {
 
     .checkout-drawer {
         left: -100vw;
+    }
+
+    .privacy-drawer {
+        width: 100vw;
+        height: 85vh;
     }
 
     /* Clean up navigation headers on tiny device layouts */
