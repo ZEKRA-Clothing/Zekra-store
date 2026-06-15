@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zekra | Editorial Fashion</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Premium Editorial Fonts & Minimalist Icon Pack -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Luxury Navigation Bar -->
+    <header>
+        <div class="logo">ZEKRA</div>
+        <nav>
+            <a href="#" class="nav-link-hide">Collections</a>
+            <a href="#" class="nav-link-hide">Our Story</a>
+            <!-- Shopping Cart Button with Counter Badge -->
+            <a href="#" class="cart-icon-btn" id="cartToggle">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-counter">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Slide-Out Luxury Cart Drawer Sidebar -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h2>Your Bag</h2>
+            <button class="close-cart-btn" id="cartClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Dynamic Item List Container -->
+        <div class="cart-items-container" id="cartItemsList">
+            <p class="empty-cart-msg">Your bag is currently empty.</p>
+        </div>
+
+        <div class="cart-drawer-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cartTotalValue">EGP 0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutOpen">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Slide-Out Checkout Drawer Sidebar (From Left) -->
+    <div class="checkout-drawer" id="checkoutDrawer">
+        <!-- Sub-Panel A: Active Checkout Input Form -->
+        <div id="checkoutFormPanel" style="height: 100%; display: flex; flex-direction: column;">
+            <div class="checkout-drawer-header">
+                <button class="back-cart-btn" id="checkoutClose"><i class="fa-solid fa-arrow-left-long"></i></button>
+                <h2>Checkout</h2>
+            </div>
+
+            <form class="checkout-form" id="checkoutForm" action="https://formspree.io/f/xojzrnlr" method="POST" enctype="multipart/form-data">
+                <div class="checkout-scroll-area">
+
+                    <!-- Shipping Form Details -->
+                    <div class="form-section">
+                        <h3>Delivery Details</h3>
+                        <div class="input-field">
+                            <input type="text" id="custName" name="Client Name" placeholder="Full Name" required autocomplete="name">
+                        </div>
+                        <div class="input-field">
+                            <input type="tel" id="custPhone" name="Phone Number" placeholder="Phone Number" required autocomplete="tel">
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="custCity" name="City / Governorate" placeholder="City / Governorate" required autocomplete="address-level1">
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="custAddress" name="Detailed Address" placeholder="Detailed Shipping Address" required autocomplete="street-address">
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Toggle Options -->
+                    <div class="form-section">
+                        <h3>Payment Method</h3>
+
+                        <div class="payment-options">
+                            <label class="payment-label active" id="labelCash">
+                                <input type="radio" name="paymentMethod" value="cash" checked onclick="togglePaymentDetails('cash')">
+                                <span class="custom-radio"></span>
+                                <div class="payment-text">
+                                    <strong>Cash on Delivery (COD)</strong>
+                                    <p>Pay with cash upon package receipt.</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-label" id="labelInstapay">
+                                <input type="radio" name="paymentMethod" value="instapay" onclick="togglePaymentDetails('instapay')">
+                                <span class="custom-radio"></span>
+                                <div class="payment-text">
+                                    <strong>Instapay Transfer</strong>
+                                    <p>Transfer directly using the Instapay app.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="instapay-details-box" id="instapayDetails">
+                            <p>Please send the exact grand total to our official handle:</p>
+                            <div class="instapay-handle">
+                                <span>zekra.clothing@instapay</span>
+                                <button type="button" onclick="navigator.clipboard.writeText('zekra.clothing@instapay'); alert('Instapay handle copied!');"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+
+                            <div class="screenshot-upload-wrapper">
+                                <label for="screenshotInput" class="upload-dropzone" id="uploadDropzone">
+                                    <i class="fa-solid fa-arrow-up-from-bracket upload-icon"></i>
+                                    <span id="uploadStatusText">Upload Confirmation Screenshot</span>
+                                    <input type="file" id="screenshotInput" name="Instapay Screenshot" accept="image/*" onchange="handleFileSelection(this)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden tracking fields for email data parsing mapping -->
+                    <input type="hidden" name="Purchased Items" id="hiddenCartItemsInput">
+                    <input type="hidden" name="Grand Total Due" id="hiddenGrandTotalInput">
+
+                    <!-- Order Pricing Overview Summary -->
+                    <div class="form-section summary-box">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="summarySubtotal">EGP 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping Cost</span>
+                            <span id="summaryShipping">EGP 60</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Grand Total</span>
+                            <span id="summaryGrandTotal">EGP 0</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="checkout-drawer-footer">
+                    <button type="submit" class="place-order-btn" id="submitBtnText">Place Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sub-Panel B: Order Success Screen Component -->
+        <div id="checkoutSuccessPanel" style="display: none; height: 100%; flex-direction: column;">
+            <div class="checkout-drawer-header success-header">
+                <h2>Order Submitted</h2>
+                <button class="close-success-btn" onclick="closeCheckout();"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="checkout-scroll-area success-content">
+                <div class="success-icon-box">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+                <p class="success-intro">Thank you for shopping with ZEKRA. Your conceptual garment order request is successfully registered.</p>
+
+                <div class="receipt-card">
+                    <div class="receipt-section">
+                        <h4>Order Number</h4>
+                        <p id="receiptOrderNum" class="highlight-text">#ZK-2026-0000</p>
+                    </div>
+
+                    <div class="receipt-section">
+                        <h4>Items Ordered</h4>
+                        <div id="receiptItemsList" class="receipt-items-mini">
+                            <!-- Populates dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="receipt-section">
+                        <h4>Shipping Address</h4>
+                        <p id="receiptName" style="font-weight: 500; margin-bottom: 0.2rem;"></p>
+                        <p id="receiptPhone" style="margin-bottom: 0.2rem;"></p>
+                        <p id="receiptAddress" style="color: var(--soft-grey); font-size: 0.85rem; line-height: 1.4;"></p>
+                    </div>
+
+                    <div class="receipt-section no-border">
+                        <h4>Payment Details</h4>
+                        <div class="receipt-row">
+                            <span>Method:</span>
+                            <span id="receiptMethod" style="font-weight: 500; text-transform: uppercase;"></span>
+                        </div>
+                        <div class="receipt-row total">
+                            <span>Total Charge:</span>
+                            <span id="receiptTotal"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-drawer-footer">
+                <button class="checkout-btn" onclick="closeCheckout();">Continue Exploring</button>
+            </div>
+        </div>
+    </div>
+    <div class="checkout-overlay" id="checkoutOverlay"></div>
+
+    <!-- Premium Product Details Pop-Up Modal Box -->
+    <div class="product-modal" id="productModal">
+        <div class="modal-body">
+            <button class="close-modal-btn" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-split">
+                <div class="modal-image-side">
+                    <div class="modal-placeholder-box" id="modalImageDisplay">[ Item Visual View ]</div>
+                </div>
+                <div class="modal-text-side">
+                    <span class="modal-brand-tag">ZEKRA LABELS</span>
+                    <h2 id="modalTitleDisplay">Product Title</h2>
+                    <div class="modal-price" id="modalPriceDisplay">EGP 0</div>
+
+                    <p class="modal-description" id="modalDescDisplay">
+                        Crafted from premium fabrics designed with structured fluidity and architectural seams. A true conceptual staple piece.
+                    </p>
+
+                    <div class="size-selection-wrapper">
+                        <span class="size-label">Select Size</span>
+                        <div class="size-buttons" id="modalSizeContainer">
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn active" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                            <button class="size-btn" data-size="XL">XL</button>
+                        </div>
+                    </div>
+
+                    <button class="modal-add-btn" id="modalAddAction">Add To Bag</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <main>
+        <!-- Split Hero Section (Responsive Mobile Stacking Configured) -->
+        <section class="split-hero">
+            <div class="hero-left">
+                <div class="top-line">
+                    <span class="left-word">EST.</span>
+                    <div class="connecting-line"></div>
+                    <span class="right-word">2026</span>
+                </div>
+                <div class="giant-title-container">
+                    <h1 class="giant-title">Zekra</h1>
+                </div>
+                <div class="bottom-line">
+                    <span class="handle">@zekra.clothing</span>
+                    <div class="connecting-line"></div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="brand-image-container">
+                    <img src="campaign.jpeg.jpeg" alt="Zekra Campaign Look">
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Categories Menu -->
+        <section class="categories-section">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="categories-menu">
+                <a href="#" class="category-link active">All Pieces</a>
+                <a href="#" class="category-link">Skirts</a>
+                <a href="#" class="category-link">Blouses</a>
+                
+            </div>
+        </section>
+
+        <!-- Product Lookbook Grid -->
+        <section class="lookbook-grid">
+            <div class="grid-item" data-id="1" data-name="Lilly the Skirt" data-price="1200" data-desc="A beautifully tier-paneled silhouette with intricate flowing dimensions and tailored waist shaping. Designed to move effortlessly through urban spaces.">
+                <div class="grid-media-box">
+                    <img src="campaign.jpeg.jpeg" alt="Lilly the Skirt" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                    <div class="media-placeholder">[ Lilly the Skirt ]</div>
+                </div>
+                <div class="item-details">
+                    <h3>01 // Lilly the Skirt</h3>
+                    <span class="view-details-trigger">View Details</span>
+                </div>
+                <div class="item-price">EGP 1,200</div>
+            </div>
+            <div class="grid-item" data-id="2" data-name="Merit" data-price="1450" data-desc="An avant-garde interpretation of modern tailoring. Features structure lines, high-grade fabric panels, and a razor-sharp structural profile.">
+                <div class="grid-media-box">
+                    <div class="media-placeholder">[ Collection Item II ]</div>
+                </div>
+                <div class="item-details">
+                    <h3>02 // Merit</h3>
+                    <span class="view-details-trigger">View Details</span>
+                </div>
+                <div class="item-price">EGP 1,450</div>
+            </div>
+            <div class="grid-item" data-id="3" data-name="Breeze" data-price="950" data-desc="Ultra lightweight, breathable, and cut with dropping shoulder seams. A minimal architectural linen layering essential built for warm climates.">
+                <div class="grid-media-box">
+                    <div class="media-placeholder">[ Collection Item III ]</div>
+                </div>
+                <div class="item-details">
+                    <h3>03 // Breeze</h3>
+                    <span class="view-details-trigger">View Details</span>
+                </div>
+                <div class="item-price">EGP 950</div>
+            </div>
+            <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A captivating contrasting garment built out of midnight silhouettes and raw exposed cuts. Stands gracefully in shifting shadows.">
+                <div class="grid-media-box">
+                    <div class="media-placeholder">[ Collection Item IV ]</div>
+                </div>
+                <div class="item-details">
+                    <h3>04 // Luna</h3>
+                    <span class="view-details-trigger">View Details</span>
+                </div>
+                <div class="item-price">EGP 1,100</div>
+            </div>
+        </section>
+
+        <!-- Editorial Split Section -->
+        <section class="editorial-split">
+            <div class="text-side">
+                <h2>DESIGNING <span>Memories</span> <br>INTO THE <span>Fabric</span></h2>
+                <p class="description">
+                    A collection born from architectural silhouettes, crisp lines, and deep emotional resonance. Pieces designed to stand out in the shadows.
+                </p>
+            </div>
+            <div class="image-side">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" alt="Zekra Editorial View" class="editorial-img">
+            </div>
+        </section>
+
+        <!-- FAQs & Newsletter Section -->
+        <section class="faq-newsletter-section">
+            <div class="faq-container">
+                <span class="faq-subtitle">Frequently Asked Questions</span>
+                <h2 class="faq-title">FAQs</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>Shipping & Delivery</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>All Zekra items are carefully packaged and shipped across Egypt. Standard delivery takes 2-5 business days. Tracking details will be supplied via text message.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>Exchange</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>We provide sizing adjustments or exchanges within 14 days of purchase. Items must remain in original packaging with brand seals attached.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>Refund</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Refund processing is available for manufacturing imperfections. Returns must be requested within 3 days of delivery confirmation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="newsletter-container">
+                <h3>Subscribe to our Newsletter</h3>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                    <div class="input-wrapper">
+                        <input type="email" placeholder="Email" required autocomplete="off">
+                        <button type="submit" class="newsletter-submit-btn">
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ZEKRA. All rights reserved.</p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT LOGIC -->
+    <script>
+        let cart = [];
+        let currentActiveProductId = null;
+        let chosenSelectedSize = "M";
+
+        // Drawers
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartToggle = document.getElementById('cartToggle');
+        const cartClose = document.getElementById('cartClose');
+        const counterBadge = document.querySelector('.cart-counter');
+        const cartItemsList = document.getElementById('cartItemsList');
+        const cartTotalValue = document.getElementById('cartTotalValue');
+
+        const checkoutDrawer = document.getElementById('checkoutDrawer');
+        const checkoutOverlay = document.getElementById('checkoutOverlay');
+        const checkoutOpen = document.getElementById('checkoutOpen');
+        const checkoutClose = document.getElementById('checkoutClose');
+        const instapayDetails = document.getElementById('instapayDetails');
+        const labelCash = document.getElementById('labelCash');
+        const labelInstapay = document.getElementById('labelInstapay');
+        const summarySubtotal = document.getElementById('summarySubtotal');
+        const summaryGrandTotal = document.getElementById('summaryGrandTotal');
+        const screenshotInput = document.getElementById('screenshotInput');
+        const checkoutForm = document.getElementById('checkoutForm');
+
+        const hiddenCartItemsInput = document.getElementById('hiddenCartItemsInput');
+        const hiddenGrandTotalInput = document.getElementById('hiddenGrandTotalInput');
+
+        // Modal Elements
+        const productModal = document.getElementById('productModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitleDisplay');
+        const modalPrice = document.getElementById('modalPriceDisplay');
+        const modalDesc = document.getElementById('modalDescDisplay');
+        const modalImageDisplay = document.getElementById('modalImageDisplay');
+        const modalAddAction = document.getElementById('modalAddAction');
+        const detailTriggers = document.querySelectorAll('.view-details-trigger');
+        const sizeButtons = document.querySelectorAll('#modalSizeContainer .size-btn');
+
+        cartToggle.addEventListener('click', (e) => { e.preventDefault(); openCart(); });
+        cartClose.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        function openCart() {
+            cartDrawer.classList.add('open');
+            cartOverlay.classList.add('active');
+            closeModal();
+            closeCheckout();
+        }
+
+        function closeCart() {
+            cartDrawer.classList.remove('open');
+            cartOverlay.classList.remove('active');
+        }
+
+        checkoutOpen.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert("Your bag is empty! Add items before checking out.");
+                return;
+            }
+            document.getElementById('checkoutFormPanel').style.display = 'flex';
+            document.getElementById('checkoutSuccessPanel').style.display = 'none';
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            summarySubtotal.textContent = `EGP ${subtotal.toLocaleString()}`;
+
+            let finalAmount = `EGP ${(subtotal + 60).toLocaleString()}`;
+            summaryGrandTotal.textContent = finalAmount;
+
+            let stringDescription = cart.map(i => `${i.name} (Size: ${i.size}) x${i.quantity}`).join(', ');
+            hiddenCartItemsInput.value = stringDescription;
+            hiddenGrandTotalInput.value = finalAmount;
+
+            closeCart();
+            checkoutDrawer.classList.add('open');
+            checkoutOverlay.classList.add('active');
+        });
+
+        checkoutClose.addEventListener('click', () => {
+            closeCheckout();
+            openCart();
+        });
+        checkoutOverlay.addEventListener('click', closeCheckout);
+
+        function closeCheckout() {
+            checkoutDrawer.classList.remove('open');
+            checkoutOverlay.classList.remove('active');
+        }
+
+        function togglePaymentDetails(type) {
+            const fileInput = document.getElementById('screenshotInput');
+            if (type === 'cash') {
+                labelCash.classList.add('active');
+                labelInstapay.classList.remove('active');
+                instapayDetails.classList.remove('open');
+                fileInput.removeAttribute('required');
+            } else if (type === 'instapay') {
+                labelInstapay.classList.add('active');
+                labelCash.classList.remove('active');
+                instapayDetails.classList.add('open');
+                fileInput.setAttribute('required', 'required');
+            }
+        }
+
+        function handleFileSelection(input) {
+            const statusText = document.getElementById('uploadStatusText');
+            const dropzone = document.getElementById('uploadDropzone');
+
+            if (input.files && input.files[0]) {
+                statusText.innerHTML = `✓ **Uploaded:** ${input.files[0].name}`;
+                dropzone.style.borderColor = "var(--burgundy)";
+                dropzone.style.backgroundColor = "rgba(48, 5, 14, 0.05)";
+            } else {
+                statusText.textContent = "Upload Confirmation Screenshot";
+                dropzone.style.borderColor = "rgba(30, 16, 15, 0.2)";
+                dropzone.style.backgroundColor = "transparent";
+            }
+        }
+
+        checkoutForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const isInstapay = document.querySelector('input[name="paymentMethod"]:checked').value === 'instapay';
+            if (isInstapay && screenshotInput.files.length === 0) {
+                alert("Please upload your Instapay payment confirmation screenshot first.");
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtnText');
+            submitBtn.textContent = "Transmitting Order...";
+            submitBtn.style.opacity = "0.7";
+            submitBtn.style.pointerEvents = "none";
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalStr = `EGP ${(subtotal + 60).toLocaleString()}`;
+            const randomOrderNum = `#ZK-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            document.getElementById('receiptOrderNum').textContent = randomOrderNum;
+            document.getElementById('receiptName').textContent = document.getElementById('custName').value;
+            document.getElementById('receiptPhone').textContent = document.getElementById('custPhone').value;
+            document.getElementById('receiptAddress').textContent = `${document.getElementById('custAddress').value}, ${document.getElementById('custCity').value}`;
+            document.getElementById('receiptMethod').textContent = isInstapay ? 'Instapay Transfer' : 'Cash on Delivery';
+            document.getElementById('receiptTotal').textContent = totalStr;
+
+            document.getElementById('receiptItemsList').innerHTML = cart.map(i => `
+                    <div class="receipt-item-row">
+                        <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
+                        <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
+                    </div>
+                `).join('');
+
+            const formData = new FormData(checkoutForm);
+
+            fetch(checkoutForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+                .then(response => {
+                    submitBtn.textContent = "Place Order";
+                    submitBtn.style.opacity = "1";
+                    submitBtn.style.pointerEvents = "auto";
+
+                    document.getElementById('checkoutFormPanel').style.display = 'none';
+                    document.getElementById('checkoutSuccessPanel').style.display = 'flex';
+
+                    cart = [];
+                    updateCartUI();
+                    checkoutForm.reset();
+                    togglePaymentDetails('cash');
+
+                    document.getElementById('uploadStatusText').textContent = "Upload Confirmation Screenshot";
+                    document.getElementById('uploadDropzone').style.borderColor = "rgba(30, 16, 15, 0.2)";
+                    document.getElementById('uploadDropzone').style.backgroundColor = "transparent";
+                })
+                .catch(error => {
+                    alert("Oops! There was a transmission hitch. Please check connection parameters and try again.");
+                    submitBtn.textContent = "Place Order";
+                    submitBtn.style.opacity = "1";
+                    submitBtn.style.pointerEvents = "auto";
+                });
+        });
+
+        // Size highlight logic
+        sizeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sizeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                chosenSelectedSize = btn.getAttribute('data-size');
+            });
+        });
+
+        // Modal Open Logic
+        detailTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const productCard = trigger.closest('.grid-item');
+                const id = productCard.getAttribute('data-id');
+                const name = productCard.getAttribute('data-name');
+                const price = productCard.getAttribute('data-price');
+                const desc = productCard.getAttribute('data-desc');
+
+                currentActiveProductId = id;
+                chosenSelectedSize = "M";
+                sizeButtons.forEach(b => {
+                    b.classList.remove('active');
+                    if (b.getAttribute('data-size') === "M") b.classList.add('active');
+                });
+
+                modalTitle.textContent = name;
+                modalPrice.textContent = `EGP ${parseInt(price).toLocaleString()}`;
+                modalDesc.textContent = desc;
+
+                if (id === "1") {
+                    modalImageDisplay.innerHTML = `<img src="campaign.jpeg.jpeg" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+                } else {
+                    modalImageDisplay.innerHTML = `<div class="media-placeholder">[ Close-up View of ${name} ]</div>`;
+                }
+
+                openModal();
+            });
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        function openModal() {
+            productModal.classList.add('open');
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            productModal.classList.remove('open');
+            modalOverlay.classList.remove('active');
+        }
+
+        modalAddAction.addEventListener('click', () => {
+            if (!currentActiveProductId) return;
+            const card = document.querySelector(`.grid-item[data-id="${currentActiveProductId}"]`);
+            const name = card.getAttribute('data-name');
+            const price = parseInt(card.getAttribute('data-price'));
+
+            addToCartArray(currentActiveProductId, name, price, chosenSelectedSize);
+
+            modalAddAction.textContent = "Added to Bag ✓";
+            modalAddAction.style.backgroundColor = "var(--burgundy)";
+
+            setTimeout(() => {
+                modalAddAction.textContent = "Add To Bag";
+                modalAddAction.style.backgroundColor = "var(--dark-charcoal)";
+                closeModal();
+                openCart();
+            }, 800);
+        });
+
+        function addToCartArray(id, name, price, size) {
+            const existingItem = cart.find(item => item.id === id && item.size === size);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, size, quantity: 1 });
+            }
+            updateCartUI();
+        }
+
+        function removeItem(id, size) {
+            cart = cart.filter(item => !(item.id === id && item.size === size));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            counterBadge.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '<p class="empty-cart-msg">Your bag is currently empty.</p>';
+            } else {
+                cartItemsList.innerHTML = cart.map(item => `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="cart-item-title">${item.name}</span>
+                                <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                            </div>
+                            <div class="cart-item-price-block">
+                                <span>EGP ${item.price * item.quantity}</span>
+                                <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalValue.textContent = `EGP ${totalPrice.toLocaleString()}`;
+        }
+
+        // FAQs Dropdowns
+        const faqHeaders = document.querySelectorAll('.accordion-header');
+        faqHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const parent = header.parentElement;
+
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    if (item !== parent && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                        item.querySelector('.accordion-content').style.maxHeight = null;
+                    }
+                });
+
+                parent.classList.toggle('active');
+                if (parent.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
