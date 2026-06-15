@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zekra | Editorial Fashion</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Premium Editorial Fonts & Minimalist Icon Pack -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Luxury Navigation Bar -->
     <header>
         <div class="logo">ZEKRA</div>
         <nav>
             <a href="#" class="nav-link-hide">Collections</a>
             <a href="#" class="nav-link-hide">Our Story</a>
-            <!-- Shopping Cart Button with Counter Badge -->
             <a href="#" class="cart-icon-btn" id="cartToggle">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span class="cart-counter">0</span>
@@ -25,14 +22,12 @@
         </nav>
     </header>
 
-    <!-- Slide-Out Luxury Cart Drawer Sidebar -->
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
             <h2>Your Bag</h2>
             <button class="close-cart-btn" id="cartClose"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!-- Dynamic Item List Container -->
         <div class="cart-items-container" id="cartItemsList">
             <p class="empty-cart-msg">Your bag is currently empty.</p>
         </div>
@@ -47,9 +42,7 @@
     </div>
     <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- Slide-Out Checkout Drawer Sidebar (From Left) -->
     <div class="checkout-drawer" id="checkoutDrawer">
-        <!-- Sub-Panel A: Active Checkout Input Form -->
         <div id="checkoutFormPanel" style="height: 100%; display: flex; flex-direction: column;">
             <div class="checkout-drawer-header">
                 <button class="back-cart-btn" id="checkoutClose"><i class="fa-solid fa-arrow-left-long"></i></button>
@@ -59,7 +52,6 @@
             <form class="checkout-form" id="checkoutForm" action="https://formspree.io/f/xojzrnlr" method="POST" enctype="multipart/form-data">
                 <div class="checkout-scroll-area">
 
-                    <!-- Shipping Form Details -->
                     <div class="form-section">
                         <h3>Delivery Details</h3>
                         <div class="input-field">
@@ -76,7 +68,6 @@
                         </div>
                     </div>
 
-                    <!-- Payment Method Toggle Options -->
                     <div class="form-section">
                         <h3>Payment Method</h3>
 
@@ -117,11 +108,9 @@
                         </div>
                     </div>
 
-                    <!-- Hidden tracking fields for email data parsing mapping -->
                     <input type="hidden" name="Purchased Items" id="hiddenCartItemsInput">
                     <input type="hidden" name="Grand Total Due" id="hiddenGrandTotalInput">
 
-                    <!-- Order Pricing Overview Summary -->
                     <div class="form-section summary-box">
                         <h3>Order Summary</h3>
                         <div class="summary-row">
@@ -146,7 +135,6 @@
             </form>
         </div>
 
-        <!-- Sub-Panel B: Order Success Screen Component -->
         <div id="checkoutSuccessPanel" style="display: none; height: 100%; flex-direction: column;">
             <div class="checkout-drawer-header success-header">
                 <h2>Order Submitted</h2>
@@ -168,7 +156,6 @@
                     <div class="receipt-section">
                         <h4>Items Ordered</h4>
                         <div id="receiptItemsList" class="receipt-items-mini">
-                            <!-- Populates dynamically -->
                         </div>
                     </div>
 
@@ -200,7 +187,6 @@
     </div>
     <div class="checkout-overlay" id="checkoutOverlay"></div>
 
-    <!-- Premium Product Details Pop-Up Modal Box -->
     <div class="product-modal" id="productModal">
         <div class="modal-body">
             <button class="close-modal-btn" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
@@ -235,7 +221,6 @@
     <div class="modal-overlay" id="modalOverlay"></div>
 
     <main>
-        <!-- Split Hero Section (Responsive Mobile Stacking Configured) -->
         <section class="split-hero">
             <div class="hero-left">
                 <div class="top-line">
@@ -258,7 +243,6 @@
             </div>
         </section>
 
-        <!-- Shop Categories Menu -->
         <section class="categories-section">
             <h2 class="section-title">Shop by Category</h2>
             <div class="categories-menu">
@@ -269,7 +253,6 @@
             </div>
         </section>
 
-        <!-- Product Lookbook Grid -->
         <section class="lookbook-grid">
             <div class="grid-item" data-id="1" data-name="Lilly the Skirt" data-price="1200" data-desc="A beautifully tier-paneled silhouette with intricate flowing dimensions and tailored waist shaping. Designed to move effortlessly through urban spaces.">
                 <div class="grid-media-box">
@@ -314,7 +297,6 @@
             </div>
         </section>
 
-        <!-- Editorial Split Section -->
         <section class="editorial-split">
             <div class="text-side">
                 <h2>DESIGNING <span>Memories</span> <br>INTO THE <span>Fabric</span></h2>
@@ -327,7 +309,6 @@
             </div>
         </section>
 
-        <!-- FAQs & Newsletter Section -->
         <section class="faq-newsletter-section">
             <div class="faq-container">
                 <span class="faq-subtitle">Frequently Asked Questions</span>
@@ -379,13 +360,56 @@
                 </form>
             </div>
         </section>
+
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info-column">
+                    <span class="contact-subtitle">Get in Touch</span>
+                    <h2>Contact Us</h2>
+                    <p class="contact-lead-text">Have a inquiry about our upcoming collections, specialized sizing profiles, or custom tailoring requests? Reach our studio desk directly.</p>
+
+                    <div class="contact-details-list">
+                        <div class="contact-detail-item">
+                            <h4>Studio Enquiries</h4>
+                            <p><a href="mailto:info@zekraclothing.com">info@zekraclothing.com</a></p>
+                        </div>
+                        <div class="contact-detail-item">
+                            <h4>Digital Transmission</h4>
+                            <p class="social-links">
+                                <a href="https://instagram.com/zekra.clothing" target="_blank"><i class="fa-brands fa-instagram"></i> @zekra.clothing</a>
+                            </p>
+                        </div>
+                        <div class="contact-detail-item">
+                            <h4>Atelier Location</h4>
+                            <p>New Cairo City, Cairo, Egypt</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-column">
+                    <form class="contact-editorial-form" action="https://formspree.io/f/xojzrnlr" method="POST" onsubmit="this.querySelector('button[type=submit]').textContent='Sending...';">
+                        <input type="hidden" name="_subject" value="New Website Contact Message // ZEKRA">
+
+                        <div class="contact-input-field">
+                            <input type="text" name="Contact Name" placeholder="Your Name" required>
+                        </div>
+                        <div class="contact-input-field">
+                            <input type="email" name="Contact Email" placeholder="Your Email Address" required>
+                        </div>
+                        <div class="contact-input-field">
+                            <textarea name="Contact Message" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="contact-submit-btn">Transmit Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2026 ZEKRA. All rights reserved.</p>
     </footer>
 
-    <!-- INTERACTIVE SCRIPT LOGIC -->
     <script>
         let cart = [];
         let currentActiveProductId = null;
@@ -638,7 +662,6 @@
                 modalAddAction.textContent = "Add To Bag";
                 modalAddAction.style.backgroundColor = "var(--dark-charcoal)";
                 closeModal();
-                // Cart drawer open event has been intentionally skipped here so users can browse unimpeded.
             }, 800);
         });
 
