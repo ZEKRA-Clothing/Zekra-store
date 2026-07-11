@@ -170,11 +170,11 @@
         <div class="modal-body">
             <button class="close-modal-btn" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-split">
-                <div class="modal-image-side">
-                    <div class="modal-placeholder-box" id="modalImageDisplay">[ Item Visual View ]</div>
+                <div class="modal-image-side" id="modalImageDisplay">
+                    <!-- Gallery or media placeholders pop up dynamically here -->
                 </div>
                 <div class="modal-text-side">
-                    <span class="modal-brand-tag">ZEKRA LABELS</span>
+                    <span class="modal-brand-tag">ZEKRA</span>
                     <h2 id="modalTitleDisplay">Product Title</h2>
                     <div class="modal-price" id="modalPriceDisplay">EGP 0</div>
 
@@ -260,47 +260,42 @@
             <h2 class="section-title">Shop by Category</h2>
             <div class="categories-menu">
                 <a href="#" class="category-link active">All Pieces</a>
-                <a href="#" class="category-link">Skirts</a>
-                <a href="#" class="category-link">Blouses</a>
-
             </div>
         </section>
 
         <!-- Product Lookbook Grid -->
         <section class="lookbook-grid">
-            <div class="grid-item" data-id="1" data-name="Lilly the Skirt" data-price="1200" data-desc="A beautifully tier-paneled silhouette with intricate flowing dimensions and tailored waist shaping. Designed to move effortlessly through urban spaces.">
+
+            <!-- 02 // Merit -->
+            <div class="grid-item" data-id="2" data-name="Merit" data-price="1000" data-desc="An avant-garde interpretation of modern tailoring. Features structure lines, high-grade fabric panels, and a razor-sharp structural profile." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
                 <div class="grid-media-box">
-                    <img src="campaign.jpeg.jpeg" alt="Lilly the Skirt" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
-                    <div class="media-placeholder">[ Lilly the Skirt ]</div>
-                </div>
-                <div class="item-details">
-                    <h3>01 // Lilly the Skirt</h3>
-                    <span class="view-details-trigger">View Details</span>
-                </div>
-                <div class="item-price">EGP 1,200</div>
-            </div>
-            <div class="grid-item" data-id="2" data-name="Merit" data-price="1450" data-desc="An avant-garde interpretation of modern tailoring. Features structure lines, high-grade fabric panels, and a razor-sharp structural profile.">
-                <div class="grid-media-box">
-                    <div class="media-placeholder">[ Collection Item II ]</div>
+                    <img src="merit1.jpeg" alt="Merit" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                    <div class="media-placeholder">[ Merit ]</div>
                 </div>
                 <div class="item-details">
                     <h3>02 // Merit</h3>
                     <span class="view-details-trigger">View Details</span>
                 </div>
-                <div class="item-price">EGP 1,450</div>
+                <div class="item-price">EGP 1,000</div>
             </div>
-            <div class="grid-item" data-id="3" data-name="Breeze" data-price="950" data-desc="Ultra lightweight, breathable, and cut with dropping shoulder seams. A minimal architectural linen layering essential built for warm climates.">
+
+            <!-- 03 // Breeze -->
+            <div class="grid-item" data-id="3" data-name="Breeze" data-price="1200" data-desc="Ultra lightweight, breathable, and cut with dropping shoulder seams. A minimal architectural linen layering essential built for warm climates." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
                 <div class="grid-media-box">
-                    <div class="media-placeholder">[ Collection Item III ]</div>
+                    <img src="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg" alt="Breeze" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                    <div class="media-placeholder">[ Breeze ]</div>
                 </div>
                 <div class="item-details">
                     <h3>03 // Breeze</h3>
                     <span class="view-details-trigger">View Details</span>
                 </div>
-                <div class="item-price">EGP 950</div>
+                <div class="item-price">EGP 1,200</div>
             </div>
-            <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A captivating contrasting garment built out of midnight silhouettes and raw exposed cuts. Stands gracefully in shifting shadows.">
+
+            <!-- 04 // Luna -->
+            <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A captivating contrasting garment built out of midnight silhouettes and raw exposed cuts. Stands gracefully in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
                 <div class="grid-media-box">
+                    <img src="luna1.jpeg" alt="Luna" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Collection Item IV ]</div>
                 </div>
                 <div class="item-details">
@@ -309,6 +304,7 @@
                 </div>
                 <div class="item-price">EGP 1,100</div>
             </div>
+
         </section>
 
         <!-- Editorial Split Section -->
@@ -320,7 +316,8 @@
                 </p>
             </div>
             <div class="image-side">
-                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" alt="Zekra Editorial View" class="editorial-img">
+                <img src="editorial.jpeg" alt="Zekra Editorial View" class="editorial-img">
+" alt="Zekra Editorial View" class="editorial-img">
             </div>
         </section>
 
@@ -388,7 +385,7 @@
                     <div class="contact-details-list">
                         <div class="contact-detail-item">
                             <h4>Studio Enquiries</h4>
-                            <p><a href="mailto:zekra.eg.2026@gmail">zekra.eg.2026@gmail.com</a></p>
+                            <p><a href="mailto:zekra.eg.2026@gmail.com">zekra.eg.2026@gmail.com</a></p>
                         </div>
                         <div class="contact-detail-item">
                             <h4>Digital Transmission</h4>
@@ -535,11 +532,8 @@
             privacyOverlay.classList.remove('active');
         }
 
-        
         checkoutForm.addEventListener('submit', function (e) {
             e.preventDefault();
-
-        
 
             const submitBtn = document.getElementById('submitBtnText');
             submitBtn.textContent = "Transmitting Order...";
@@ -558,11 +552,11 @@
             document.getElementById('receiptTotal').textContent = totalStr;
 
             document.getElementById('receiptItemsList').innerHTML = cart.map(i => `
-                        <div class="receipt-item-row">
-                            <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
-                            <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
-                        </div>
-                    `).join('');
+                            <div class="receipt-item-row">
+                                <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
+                                <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
+                            </div>
+                        `).join('');
 
             const formData = new FormData(checkoutForm);
 
@@ -582,7 +576,6 @@
                     cart = [];
                     updateCartUI();
                     checkoutForm.reset();
-                    
                 })
                 .catch(error => {
                     alert("Oops! There was a transmission hitch. Please check connection parameters and try again.");
@@ -601,7 +594,7 @@
             });
         });
 
-        // Modal Open Logic
+        // Modal Open Logic with Multi-Image Parsing Support
         detailTriggers.forEach(trigger => {
             trigger.addEventListener('click', () => {
                 const productCard = trigger.closest('.grid-item');
@@ -609,6 +602,16 @@
                 const name = productCard.getAttribute('data-name');
                 const price = productCard.getAttribute('data-price');
                 const desc = productCard.getAttribute('data-desc');
+
+                const imagesAttr = productCard.getAttribute('data-images');
+                const cardImg = productCard.querySelector('.grid-media-box img');
+                let imagesArray = [];
+
+                if (imagesAttr) {
+                    imagesArray = imagesAttr.split(',').map(img => img.trim());
+                } else if (cardImg && cardImg.getAttribute('src')) {
+                    imagesArray = [cardImg.getAttribute('src')];
+                }
 
                 currentActiveProductId = id;
                 chosenSelectedSize = "M";
@@ -621,8 +624,28 @@
                 modalPrice.textContent = `EGP ${parseInt(price).toLocaleString()}`;
                 modalDesc.textContent = desc;
 
-                if (id === "1") {
-                    modalImageDisplay.innerHTML = `<img src="campaign.jpeg.jpeg" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+                if (imagesArray.length > 0) {
+                    let galleryHTML = `
+                            <div class="modal-gallery-wrapper">
+                                <div class="modal-main-image-viewport">
+                                    <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                </div>
+                        `;
+
+                    if (imagesArray.length > 1) {
+                        galleryHTML += `<div class="modal-thumbnails-strip">`;
+                        imagesArray.forEach((imgSrc, index) => {
+                            galleryHTML += `
+                                    <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
+                                        <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                    </div>
+                                `;
+                        });
+                        galleryHTML += `</div>`;
+                    }
+
+                    galleryHTML += `</div>`;
+                    modalImageDisplay.innerHTML = galleryHTML;
                 } else {
                     modalImageDisplay.innerHTML = `<div class="media-placeholder">[ Close-up View of ${name} ]</div>`;
                 }
@@ -642,6 +665,13 @@
         function closeModal() {
             productModal.classList.remove('open');
             modalOverlay.classList.remove('active');
+        }
+
+        function switchModalImage(thumbElement, newSrc) {
+            document.getElementById('modalMainImage').src = newSrc;
+            const thumbnails = document.querySelectorAll('.modal-thumb-box');
+            thumbnails.forEach(t => t.classList.remove('active'));
+            thumbElement.classList.add('active');
         }
 
         modalAddAction.addEventListener('click', () => {
@@ -685,17 +715,17 @@
                 cartItemsList.innerHTML = '<p class="empty-cart-msg">Your bag is currently empty.</p>';
             } else {
                 cartItemsList.innerHTML = cart.map(item => `
-                            <div class="cart-item">
-                                <div class="cart-item-info">
-                                    <span class="cart-item-title">${item.name}</span>
-                                    <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                <div class="cart-item">
+                                    <div class="cart-item-info">
+                                        <span class="cart-item-title">${item.name}</span>
+                                        <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                    </div>
+                                    <div class="cart-item-price-block">
+                                        <span>EGP ${(item.price * item.quantity).toLocaleString()}</span>
+                                        <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
+                                    </div>
                                 </div>
-                                <div class="cart-item-price-block">
-                                    <span>EGP ${item.price * item.quantity}</span>
-                                    <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
-                                </div>
-                            </div>
-                        `).join('');
+                            `).join('');
             }
 
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
