@@ -185,10 +185,8 @@
                     <div class="size-selection-wrapper">
                         <span class="size-label">Select Size</span>
                         <div class="size-buttons" id="modalSizeContainer">
-                            <button class="size-btn" data-size="S">S</button>
-                            <button class="size-btn active" data-size="M">M</button>
-                            <button class="size-btn" data-size="L">L</button>
-                            <button class="size-btn" data-size="XL">XL</button>
+                            <button class="size-btn active" data-size="S/M">S/M</button>
+                            <button class="size-btn" data-size="L/XL">L/XL</button>
                         </div>
                     </div>
 
@@ -268,7 +266,8 @@
 
             <!-- 02 // Merit -->
             <div class="grid-item" data-id="2" data-name="Merit" data-price="1000" data-desc="An avant-garde interpretation of modern tailoring. Features structure lines, high-grade fabric panels, and a razor-sharp structural profile." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
-                <div class="grid-media-box">
+                <!-- Added specific cursor styling directly onto the media box container frame for better UX -->
+                <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="merit1.jpeg" alt="Merit" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Merit ]</div>
                 </div>
@@ -281,7 +280,7 @@
 
             <!-- 03 // Breeze -->
             <div class="grid-item" data-id="3" data-name="Breeze" data-price="1200" data-desc="Ultra lightweight, breathable, and cut with dropping shoulder seams. A minimal architectural linen layering essential built for warm climates." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
-                <div class="grid-media-box">
+                <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg" alt="Breeze" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Breeze ]</div>
                 </div>
@@ -294,7 +293,7 @@
 
             <!-- 04 // Luna -->
             <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A captivating contrasting garment built out of midnight silhouettes and raw exposed cuts. Stands gracefully in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
-                <div class="grid-media-box">
+                <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="luna1.jpeg" alt="Luna" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Collection Item IV ]</div>
                 </div>
@@ -424,7 +423,7 @@
     <script>
         let cart = [];
         let currentActiveProductId = null;
-        let chosenSelectedSize = "M";
+        let chosenSelectedSize = "S/M";
 
         // Drawers
         const cartDrawer = document.getElementById('cartDrawer');
@@ -453,7 +452,6 @@
         const modalDesc = document.getElementById('modalDescDisplay');
         const modalImageDisplay = document.getElementById('modalImageDisplay');
         const modalAddAction = document.getElementById('modalAddAction');
-        const detailTriggers = document.querySelectorAll('.view-details-trigger');
         const sizeButtons = document.querySelectorAll('#modalSizeContainer .size-btn');
 
         // Privacy Policy Elements
@@ -593,64 +591,79 @@
             });
         });
 
-        // Modal Open Logic with Multi-Image Parsing Support
-        detailTriggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const productCard = trigger.closest('.grid-item');
-                const id = productCard.getAttribute('data-id');
-                const name = productCard.getAttribute('data-name');
-                const price = productCard.getAttribute('data-price');
-                const desc = productCard.getAttribute('data-desc');
+        // Modular Quick View Trigger Handler function (Shared across Image + Text Button targets)
+        function launchProductModal(gridItemElement) {
+            const id = gridItemElement.getAttribute('data-id');
+            const name = gridItemElement.getAttribute('data-name');
+            const price = gridItemElement.getAttribute('data-price');
+            const desc = gridItemElement.getAttribute('data-desc');
 
-                const imagesAttr = productCard.getAttribute('data-images');
-                const cardImg = productCard.querySelector('.grid-media-box img');
-                let imagesArray = [];
+            const imagesAttr = gridItemElement.getAttribute('data-images');
+            const cardImg = gridItemElement.querySelector('.grid-media-box img');
+            let imagesArray = [];
 
-                if (imagesAttr) {
-                    imagesArray = imagesAttr.split(',').map(img => img.trim());
-                } else if (cardImg && cardImg.getAttribute('src')) {
-                    imagesArray = [cardImg.getAttribute('src')];
-                }
+            if (imagesAttr) {
+                imagesArray = imagesAttr.split(',').map(img => img.trim());
+            } else if (cardImg && cardImg.getAttribute('src')) {
+                imagesArray = [cardImg.getAttribute('src')];
+            }
 
-                currentActiveProductId = id;
-                chosenSelectedSize = "M";
-                sizeButtons.forEach(b => {
-                    b.classList.remove('active');
-                    if (b.getAttribute('data-size') === "M") b.classList.add('active');
-                });
-
-                modalTitle.textContent = name;
-                modalPrice.textContent = `EGP ${parseInt(price).toLocaleString()}`;
-                modalDesc.textContent = desc;
-
-                if (imagesArray.length > 0) {
-                    let galleryHTML = `
-                            <div class="modal-gallery-wrapper">
-                                <div class="modal-main-image-viewport">
-                                    <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                                </div>
-                        `;
-
-                    if (imagesArray.length > 1) {
-                        galleryHTML += `<div class="modal-thumbnails-strip">`;
-                        imagesArray.forEach((imgSrc, index) => {
-                            galleryHTML += `
-                                    <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
-                                        <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                                    </div>
-                                `;
-                        });
-                        galleryHTML += `</div>`;
-                    }
-
-                    galleryHTML += `</div>`;
-                    modalImageDisplay.innerHTML = galleryHTML;
-                } else {
-                    modalImageDisplay.innerHTML = `<div class="media-placeholder">[ Close-up View of ${name} ]</div>`;
-                }
-
-                openModal();
+            currentActiveProductId = id;
+            chosenSelectedSize = "S/M";
+            sizeButtons.forEach(b => {
+                b.classList.remove('active');
+                if (b.getAttribute('data-size') === "S/M") b.classList.add('active');
             });
+
+            modalTitle.textContent = name;
+            modalPrice.textContent = `EGP ${parseInt(price).toLocaleString()}`;
+            modalDesc.textContent = desc;
+
+            if (imagesArray.length > 0) {
+                let galleryHTML = `
+                        <div class="modal-gallery-wrapper">
+                            <div class="modal-main-image-viewport">
+                                <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                            </div>
+                    `;
+
+                if (imagesArray.length > 1) {
+                    galleryHTML += `<div class="modal-thumbnails-strip">`;
+                    imagesArray.forEach((imgSrc, index) => {
+                        galleryHTML += `
+                                <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
+                                    <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                </div>
+                            `;
+                    });
+                    galleryHTML += `</div>`;
+                }
+
+                galleryHTML += `</div>`;
+                modalImageDisplay.innerHTML = galleryHTML;
+            } else {
+                modalImageDisplay.innerHTML = `<div class="media-placeholder">[ Close-up View of ${name} ]</div>`;
+            }
+
+            openModal();
+        }
+
+        // Bind quick view events to both the "View Details" text trigger and the main image box element container
+        document.querySelectorAll('.grid-item').forEach(item => {
+            const textTrigger = item.querySelector('.view-details-trigger');
+            const imageTrigger = item.querySelector('.product-click-trigger');
+
+            if(textTrigger) {
+                textTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents double firing events bubbles
+                    launchProductModal(item);
+                });
+            }
+            if(imageTrigger) {
+                imageTrigger.addEventListener('click', () => {
+                    launchProductModal(item);
+                });
+            }
         });
 
         modalClose.addEventListener('click', closeModal);
