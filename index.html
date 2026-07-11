@@ -261,12 +261,11 @@
             </div>
         </section>
 
-        <!-- Product Lookbook Grid -->
+        <!-- Product Lookbook Grid with Whimsical Updated Custom Descriptions -->
         <section class="lookbook-grid">
 
             <!-- 02 // Merit -->
-            <div class="grid-item" data-id="2" data-name="Merit" data-price="1000" data-desc="An avant-garde interpretation of modern tailoring. Features structure lines, high-grade fabric panels, and a razor-sharp structural profile." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
-                <!-- Added specific cursor styling directly onto the media box container frame for better UX -->
+            <div class="grid-item" data-id="2" data-name="Merit" data-price="1000" data-desc="Sharp structure meets daydream status. Woven from airy, touch-me-not-I'm-pure-linen, this blouse brings clean geometric cutlines to your daily escape. It's sophisticated, sweet, and practically floats on air. Perfect for turning ordinary moments into poetry." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="merit1.jpeg" alt="Merit" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Merit ]</div>
@@ -279,7 +278,7 @@
             </div>
 
             <!-- 03 // Breeze -->
-            <div class="grid-item" data-id="3" data-name="Breeze" data-price="1200" data-desc="Ultra lightweight, breathable, and cut with dropping shoulder seams. A minimal architectural linen layering essential built for warm climates." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
+            <div class="grid-item" data-id="3" data-name="Breeze" data-price="1200" data-desc="Spun from pure midnight secrets and delicate romance. Spiced with dropped shoulder seams and romantic black dantel lace details, this piece lets the wind play peek-a-boo while keeping your vibe entirely graceful. Slip it on, start a mystery, and let it flow behind you." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg" alt="Breeze" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Breeze ]</div>
@@ -292,7 +291,7 @@
             </div>
 
             <!-- 04 // Luna -->
-            <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A captivating contrasting garment built out of midnight silhouettes and raw exposed cuts. Stands gracefully in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
+            <div class="grid-item" data-id="4" data-name="Luna" data-price="1100" data-desc="A beautiful silhouette tailored for starlight catchers and late-night thinkers. Crafted from rich linen, this design plays with raw exposed edge detailing and deep contrasting dark tones. Made specifically for catching eyes and dancing effortlessly in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="luna1.jpeg" alt="Luna" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Collection Item IV ]</div>
@@ -425,6 +424,13 @@
         let currentActiveProductId = null;
         let chosenSelectedSize = "S/M";
 
+        // Automated Inventory Storage Map State Configuration Profiles
+        let inventory = {
+            "2": { "S/M": 15, "L/XL": 15 },  // Merit
+            "3": { "S/M": 18, "L/XL": 18 },  // Breeze
+            "4": { "S/M": 14, "L/XL": 14 }   // Luna
+        };
+
         // Drawers
         const cartDrawer = document.getElementById('cartDrawer');
         const cartOverlay = document.getElementById('cartOverlay');
@@ -482,6 +488,16 @@
                 alert("Your bag is empty! Add items before checking out.");
                 return;
             }
+
+            // Real-Time Pre-Checkout Stock Verification Guard
+            for (let item of cart) {
+                let realTimeStock = inventory[item.id][item.size];
+                if (item.quantity > realTimeStock) {
+                    alert(`Sorry! Only ${realTimeStock} piece(s) of ${item.name} (${item.size}) are left in stock. Please adjust your bag quantity.`);
+                    return;
+                }
+            }
+
             document.getElementById('checkoutFormPanel').style.display = 'flex';
             document.getElementById('checkoutSuccessPanel').style.display = 'none';
 
@@ -567,6 +583,11 @@
                     submitBtn.style.opacity = "1";
                     submitBtn.style.pointerEvents = "auto";
 
+                    // Deduct items from storage parameters upon formal order transmission confirmation
+                    cart.forEach(item => {
+                        inventory[item.id][item.size] -= item.quantity;
+                    });
+
                     document.getElementById('checkoutFormPanel').style.display = 'none';
                     document.getElementById('checkoutSuccessPanel').style.display = 'flex';
 
@@ -582,12 +603,31 @@
                 });
         });
 
+        // Dynamic stock status update helper engine mapping interface
+        function updateModalButtonStockUI() {
+            if (!currentActiveProductId) return;
+            let availableStock = inventory[currentActiveProductId][chosenSelectedSize];
+
+            if (availableStock <= 0) {
+                modalAddAction.textContent = "Sold Out";
+                modalAddAction.style.backgroundColor = "#731d25";
+                modalAddAction.style.pointerEvents = "none";
+                modalAddAction.style.opacity = "0.6";
+            } else {
+                modalAddAction.textContent = "Add To Bag";
+                modalAddAction.style.backgroundColor = "var(--dark-charcoal)";
+                modalAddAction.style.pointerEvents = "auto";
+                modalAddAction.style.opacity = "1";
+            }
+        }
+
         // Size highlight logic
         sizeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 sizeButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 chosenSelectedSize = btn.getAttribute('data-size');
+                updateModalButtonStockUI();
             });
         });
 
@@ -623,7 +663,7 @@
                 let galleryHTML = `
                         <div class="modal-gallery-wrapper">
                             <div class="modal-main-image-viewport">
-                                <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                    <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
                             </div>
                     `;
 
@@ -645,6 +685,7 @@
                 modalImageDisplay.innerHTML = `<div class="media-placeholder">[ Close-up View of ${name} ]</div>`;
             }
 
+            updateModalButtonStockUI();
             openModal();
         }
 
@@ -692,14 +733,22 @@
             const name = card.getAttribute('data-name');
             const price = parseInt(card.getAttribute('data-price'));
 
+            // Double check validation before adding items to active array matrix
+            let currentCartItem = cart.find(item => item.id === currentActiveProductId && item.size === chosenSelectedSize);
+            let totalRequestedQuantity = (currentCartItem ? currentCartItem.quantity : 0) + 1;
+
+            if (totalRequestedQuantity > inventory[currentActiveProductId][chosenSelectedSize]) {
+                alert("You cannot add more of this size to your bag because it is now out of stock.");
+                return;
+            }
+
             addToCartArray(currentActiveProductId, name, price, chosenSelectedSize);
 
             modalAddAction.textContent = "Added to Bag ✓";
             modalAddAction.style.backgroundColor = "var(--burgundy)";
 
             setTimeout(() => {
-                modalAddAction.textContent = "Add To Bag";
-                modalAddAction.style.backgroundColor = "var(--dark-charcoal)";
+                updateModalButtonStockUI();
                 closeModal();
             }, 800);
         });
