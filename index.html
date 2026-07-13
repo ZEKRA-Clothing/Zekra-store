@@ -95,7 +95,7 @@
                         </div>
                         <div class="summary-row">
                             <span>Shipping Cost</span>
-                            <span id="summaryShipping">EGP 60</span>
+                            <span id="summaryShipping">EGP 80</span>
                         </div>
                         <div class="summary-row total-row">
                             <span>Grand Total</span>
@@ -504,7 +504,7 @@
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             summarySubtotal.textContent = `EGP ${subtotal.toLocaleString()}`;
 
-            let finalAmount = `EGP ${(subtotal + 60).toLocaleString()}`;
+            let finalAmount = `EGP ${(subtotal + 80).toLocaleString()}`;
             summaryGrandTotal.textContent = finalAmount;
 
             let stringDescription = cart.map(i => `${i.name} (Size: ${i.size}) x${i.quantity}`).join(', ');
@@ -554,7 +554,7 @@
             submitBtn.style.pointerEvents = "none";
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const totalStr = `EGP ${(subtotal + 60).toLocaleString()}`;
+            const totalStr = `EGP ${(subtotal + 80).toLocaleString()}`;
             const randomOrderNum = `#ZK-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
             document.getElementById('receiptOrderNum').textContent = randomOrderNum;
@@ -565,11 +565,11 @@
             document.getElementById('receiptTotal').textContent = totalStr;
 
             document.getElementById('receiptItemsList').innerHTML = cart.map(i => `
-                            <div class="receipt-item-row">
-                                <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
-                                <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
-                            </div>
-                        `).join('');
+                                <div class="receipt-item-row">
+                                    <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
+                                    <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
+                                </div>
+                            `).join('');
 
             const formData = new FormData(checkoutForm);
 
@@ -661,20 +661,20 @@
 
             if (imagesArray.length > 0) {
                 let galleryHTML = `
-                        <div class="modal-gallery-wrapper">
-                            <div class="modal-main-image-viewport">
-                                    <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                            </div>
-                    `;
+                            <div class="modal-gallery-wrapper">
+                                <div class="modal-main-image-viewport">
+                                        <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                </div>
+                        `;
 
                 if (imagesArray.length > 1) {
                     galleryHTML += `<div class="modal-thumbnails-strip">`;
                     imagesArray.forEach((imgSrc, index) => {
                         galleryHTML += `
-                                <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
-                                    <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                                </div>
-                            `;
+                                    <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
+                                        <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                    </div>
+                                `;
                     });
                     galleryHTML += `</div>`;
                 }
@@ -694,13 +694,13 @@
             const textTrigger = item.querySelector('.view-details-trigger');
             const imageTrigger = item.querySelector('.product-click-trigger');
 
-            if(textTrigger) {
+            if (textTrigger) {
                 textTrigger.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevents double firing events bubbles
                     launchProductModal(item);
                 });
             }
-            if(imageTrigger) {
+            if (imageTrigger) {
                 imageTrigger.addEventListener('click', () => {
                     launchProductModal(item);
                 });
@@ -776,17 +776,17 @@
                 cartItemsList.innerHTML = '<p class="empty-cart-msg">Your bag is currently empty.</p>';
             } else {
                 cartItemsList.innerHTML = cart.map(item => `
-                                <div class="cart-item">
-                                    <div class="cart-item-info">
-                                        <span class="cart-item-title">${item.name}</span>
-                                        <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                    <div class="cart-item">
+                                        <div class="cart-item-info">
+                                            <span class="cart-item-title">${item.name}</span>
+                                            <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                        </div>
+                                        <div class="cart-item-price-block">
+                                            <span>EGP ${(item.price * item.quantity).toLocaleString()}</span>
+                                            <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
+                                        </div>
                                     </div>
-                                    <div class="cart-item-price-block">
-                                        <span>EGP ${(item.price * item.quantity).toLocaleString()}</span>
-                                        <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
-                                    </div>
-                                </div>
-                            `).join('');
+                                `).join('');
             }
 
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
