@@ -185,8 +185,7 @@
                     <div class="size-selection-wrapper">
                         <span class="size-label">Select Size</span>
                         <div class="size-buttons" id="modalSizeContainer">
-                            <button class="size-btn active" data-size="S/M">S/M</button>
-                            <button class="size-btn" data-size="L/XL">L/XL</button>
+                            <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
@@ -257,15 +256,17 @@
         <section class="categories-section">
             <h2 class="section-title">Shop by Category</h2>
             <div class="categories-menu">
-                <a href="#" class="category-link active">All Pieces</a>
+                <a href="#" class="category-link active" data-filter="all">All Pieces</a>
+                <a href="#" class="category-link" data-filter="blouse">Blouses</a>
+                <a href="#" class="category-link" data-filter="skirt">Skirts</a>
             </div>
         </section>
 
-        <!-- Product Lookbook Grid with Whimsical Updated Custom Descriptions -->
+        <!-- Product Lookbook Grid with Custom Categories[cite: 1] -->
         <section class="lookbook-grid">
 
             <!-- 02 // Merit -->
-            <div class="grid-item" data-id="2" data-name="Merit" data-price="700" data-desc="Sharp structure meets daydream status. Woven from airy, touch-me-not-I'm-pure-linen, this blouse brings clean geometric cutlines to your daily escape. It's sophisticated, sweet, and practically floats on air. Perfect for turning ordinary moments into poetry." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
+            <div class="grid-item" data-id="2" data-category="blouse" data-name="Merit" data-price="700" data-desc="Sharp structure meets daydream status. Woven from airy, touch-me-not-I'm-pure-linen, this blouse brings clean geometric cutlines to your daily escape. It's sophisticated, sweet, and practically floats on air. Perfect for turning ordinary moments into poetry." data-images="merit1.jpeg, merit2.jpeg, merit3.jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="merit1.jpeg" alt="Merit" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Merit ]</div>
@@ -278,7 +279,7 @@
             </div>
 
             <!-- 03 // Breeze -->
-            <div class="grid-item" data-id="3" data-name="Breeze" data-price="900" data-desc="Spun from pure midnight secrets and delicate romance. Spiced with dropped shoulder seams and romantic black dantel lace details, this piece lets the wind play peek-a-boo while keeping your vibe entirely graceful. Slip it on, start a mystery, and let it flow behind you." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
+            <div class="grid-item" data-id="3" data-category="blouse" data-name="Breeze" data-price="900" data-desc="Spun from pure midnight secrets and delicate romance. Spiced with dropped shoulder seams and romantic black dantel lace details, this piece lets the wind play peek-a-boo while keeping your vibe entirely graceful. Slip it on, start a mystery, and let it flow behind you." data-images="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg, WhatsApp Image 2026-07-11 at 10.58.25 PM(1).jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="WhatsApp Image 2026-07-11 at 10.58.25 PM(2).jpeg" alt="Breeze" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Breeze ]</div>
@@ -291,7 +292,7 @@
             </div>
 
             <!-- 04 // Luna -->
-            <div class="grid-item" data-id="4" data-name="Luna" data-price="800" data-desc="A beautiful silhouette tailored for starlight catchers and late-night thinkers. Crafted from rich linen, this design plays with raw exposed edge detailing and deep contrasting dark tones. Made specifically for catching eyes and dancing effortlessly in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
+            <div class="grid-item" data-id="4" data-category="blouse" data-name="Luna" data-price="800" data-desc="A beautiful silhouette tailored for starlight catchers and late-night thinkers. Crafted from rich linen, this design plays with raw exposed edge detailing and deep contrasting dark tones. Made specifically for catching eyes and dancing effortlessly in shifting shadows." data-images="luna1.jpeg, luna2.jpeg, luna3.jpeg">
                 <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
                     <img src="luna1.jpeg" alt="Luna" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
                     <div class="media-placeholder">[ Collection Item IV ]</div>
@@ -301,6 +302,19 @@
                     <span class="view-details-trigger">View Details</span>
                 </div>
                 <div class="item-price">EGP 800</div>
+            </div>
+
+            <!-- 05 // The Lily's Skirt[cite: 1] -->
+            <div class="grid-item" data-id="5" data-category="skirt" data-name="The Lily's Skirt" data-price="1100" data-desc="Architectural elegance defined by fluid motion. The Lily's Skirt features structural pleating and a sophisticated flowing silhouette that shifts beautifully with every movement. Tailored from a premium breathable blend, it brings a refined, dramatic edge to modern, minimalist styling. A feeling to remember." data-images="lily1.jpeg, lily2.jpeg, lily3.jpeg, lily4.jpeg, lily5.jpeg">
+                <div class="grid-media-box product-click-trigger" style="cursor: pointer;">
+                    <img src="lily1.jpeg" alt="The Lily's Skirt" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                    <div class="media-placeholder">[ The Lily's Skirt ]</div>
+                </div>
+                <div class="item-details">
+                    <h3>05 // The Lily's Skirt</h3>
+                    <span class="view-details-trigger">View Details</span>
+                </div>
+                <div class="item-price">EGP 1,100</div>
             </div>
 
         </section>
@@ -424,11 +438,12 @@
         let currentActiveProductId = null;
         let chosenSelectedSize = "S/M";
 
-        // Automated Inventory Storage Map State Configuration Profiles
+        // Automated Inventory Storage Map State Configuration Profiles[cite: 1]
         let inventory = {
-            "2": { "S/M": 15, "L/XL": 15 },  // Merit
-            "3": { "S/M": 18, "L/XL": 18 },  // Breeze
-            "4": { "S/M": 14, "L/XL": 14 }   // Luna
+            "2": { "S/M": 15, "L/XL": 15 },       // Merit
+            "3": { "S/M": 18, "L/XL": 18 },       // Breeze
+            "4": { "S/M": 14, "L/XL": 14 },       // Luna
+            "5": { "One Size": 20 }                // The Lily's Skirt (One Size Variant)
         };
 
         // Drawers
@@ -458,7 +473,7 @@
         const modalDesc = document.getElementById('modalDescDisplay');
         const modalImageDisplay = document.getElementById('modalImageDisplay');
         const modalAddAction = document.getElementById('modalAddAction');
-        const sizeButtons = document.querySelectorAll('#modalSizeContainer .size-btn');
+        const modalSizeContainer = document.getElementById('modalSizeContainer');
 
         // Privacy Policy Elements
         const privacyDrawer = document.getElementById('privacyDrawer');
@@ -565,11 +580,11 @@
             document.getElementById('receiptTotal').textContent = totalStr;
 
             document.getElementById('receiptItemsList').innerHTML = cart.map(i => `
-                                    <div class="receipt-item-row">
-                                        <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
-                                        <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
-                                    </div>
-                                `).join('');
+                                        <div class="receipt-item-row">
+                                            <span>${i.name} (Size: ${i.size}) <strong>x${i.quantity}</strong></span>
+                                            <span>EGP ${(i.price * i.quantity).toLocaleString()}</span>
+                                        </div>
+                                    `).join('');
 
             const formData = new FormData(checkoutForm);
 
@@ -621,16 +636,6 @@
             }
         }
 
-        // Size highlight logic
-        sizeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                sizeButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                chosenSelectedSize = btn.getAttribute('data-size');
-                updateModalButtonStockUI();
-            });
-        });
-
         // Modular Quick View Trigger Handler function (Shared across Image + Text Button targets)
         function launchProductModal(gridItemElement) {
             const id = gridItemElement.getAttribute('data-id');
@@ -649,10 +654,28 @@
             }
 
             currentActiveProductId = id;
-            chosenSelectedSize = "S/M";
-            sizeButtons.forEach(b => {
-                b.classList.remove('active');
-                if (b.getAttribute('data-size') === "S/M") b.classList.add('active');
+
+            // Render Dynamic Sizing Selection Elements Contextually based on ID
+            if(id === "5") {
+                chosenSelectedSize = "One Size";
+                modalSizeContainer.innerHTML = `<button class="size-btn active" data-size="One Size">OS</button>`;
+            } else {
+                chosenSelectedSize = "S/M";
+                modalSizeContainer.innerHTML = `
+                    <button class="size-btn active" data-size="S/M">S/M</button>
+                    <button class="size-btn" data-size="L/XL">L/XL</button>
+                `;
+            }
+
+            // Bind click event handlers to newly generated size buttons dynamically
+            const sizeButtons = modalSizeContainer.querySelectorAll('.size-btn');
+            sizeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sizeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    chosenSelectedSize = btn.getAttribute('data-size');
+                    updateModalButtonStockUI();
+                });
             });
 
             modalTitle.textContent = name;
@@ -661,20 +684,20 @@
 
             if (imagesArray.length > 0) {
                 let galleryHTML = `
-                                <div class="modal-gallery-wrapper">
-                                    <div class="modal-main-image-viewport">
-                                            <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                                    </div>
-                            `;
+                                    <div class="modal-gallery-wrapper">
+                                        <div class="modal-main-image-viewport">
+                                                <img id="modalMainImage" src="${imagesArray[0]}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                        </div>
+                                `;
 
                 if (imagesArray.length > 1) {
                     galleryHTML += `<div class="modal-thumbnails-strip">`;
                     imagesArray.forEach((imgSrc, index) => {
                         galleryHTML += `
-                                        <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
-                                            <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                                        </div>
-                                    `;
+                                            <div class="modal-thumb-box ${index === 0 ? 'active' : ''}" onclick="switchModalImage(this, '${imgSrc}')">
+                                                <img src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                                            </div>
+                                        `;
                     });
                     galleryHTML += `</div>`;
                 }
@@ -776,17 +799,17 @@
                 cartItemsList.innerHTML = '<p class="empty-cart-msg">Your bag is currently empty.</p>';
             } else {
                 cartItemsList.innerHTML = cart.map(item => `
-                                        <div class="cart-item">
-                                            <div class="cart-item-info">
-                                                <span class="cart-item-title">${item.name}</span>
-                                                <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                            <div class="cart-item">
+                                                <div class="cart-item-info">
+                                                    <span class="cart-item-title">${item.name}</span>
+                                                    <span class="cart-item-qty">Size: <strong>${item.size}</strong> &nbsp;|&nbsp; Qty: ${item.quantity}</span>
+                                                </div>
+                                                <div class="cart-item-price-block">
+                                                    <span>EGP ${(item.price * item.quantity).toLocaleString()}</span>
+                                                    <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
+                                                </div>
                                             </div>
-                                            <div class="cart-item-price-block">
-                                                <span>EGP ${(item.price * item.quantity).toLocaleString()}</span>
-                                                <button onclick="removeItem('${item.id}', '${item.size}')" class="remove-item-btn">Remove</button>
-                                            </div>
-                                        </div>
-                                    `).join('');
+                                        `).join('');
             }
 
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -813,6 +836,31 @@
                 } else {
                     content.style.maxHeight = null;
                 }
+            });
+        });
+
+        // Category Filter Interaction Handler[cite: 1]
+        const categoryLinks = document.querySelectorAll('.category-link');
+        const gridItems = document.querySelectorAll('.grid-item');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active class typography underline
+                categoryLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                const filterValue = link.getAttribute('data-filter');
+                
+                gridItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    if (filterValue === 'all' || itemCategory === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
         });
     </script>
